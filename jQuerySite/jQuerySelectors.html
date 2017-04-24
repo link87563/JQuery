@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+/*.simpleTable {
+	border: 1px solid green;
+	width: 300px;
+	border-collapse: collapse;
+}
+
+.simpleTable td, .simpleTable th {
+	border: 1px solid green;
+	padding: 10px;
+}*/
+</style>
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery Selectors</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <a href="a.doc">A(doc)</a> |
+                        <a href="a.pdf">A(pdf)</a> <br />
+                        <a href="b.doc">B(doc)</a> |
+                        <a href="b.pdf">B(pdf)</a>
+
+                        <hr />
+
+                        <input type="text" value="請輸入" /><br />
+                        <input type="text" value="請輸入" /><br />
+                        <input type="text" value="請輸入" /><br />
+                        <input type="button" value="送出" />
+                        <hr />
+
+                        <table class="simpleTable">
+                            <tr>
+                                <td>A0</td>
+                                <td>B1</td>
+                                <td>C2</td>
+                            </tr>
+                            <tr>
+                                <td>D3</td>
+                                <td>E4</td>
+                                <td>F5</td>
+                            </tr>
+                            <tr>
+                                <td>G6</td>
+                                <td>H7</td>
+                                <td>I8</td>
+                            </tr>
+
+
+                        </table>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            //==== Attribute Selectors ====
+            //在pdf及doc的超連結前面加上小圖
+            //css 參考用法如下
+            //text-decoration:none
+            //background:url(Images/pdf_icon.gif) no-repeat
+            //padding-left:20px
+
+            //=============================
+
+            //==== Basic Filter Selectors ====
+            //根據索引值,找到要控制的元素(標籤)
+            //練習一
+            //將E4的背景色，設定成紫色 background-color:purple
+            //將A0-C2的背景色，設定成黃色 background-color:yellow
+            //將G6-I8的背景色，設定成橘色 background-color:orange
+
+            //練習二
+            //先將上面的練習都注解掉
+            //將偶數格A0,C2,E4,G6,I8的背景色，設定成黃色 background-color:yellow
+            //將數格B1,D3,F5,H7的背景色，設定成橘色 background-color:orange
+
+            //=============================
+
+            //==== Child Filter Selectors ===========
+
+            //=============================
+
+
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        #mybox {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            width: 250px;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #tooltip {
+            position: absolute;
+            z-index: 2;
+            width: 300px;
+            padding: 5px;
+            background-color: #A7A7A7;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="mybox">Hover over me for more information</div>
+    <div id="tooltip">This is more information</div>
+
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script>
+        $(function () {
+            //滑鼠移到id為mybox的div上時顯示id為tooltip的div內容
+            //滑鼠離開id為mybox的div上時隱藏id為tooltip的div內容
+          
+
+            
+            //取得滑鼠在頁面上的位置座標
+            //設定id為tooltip的div所在位置
+
+        });
+    </script>
+</body>
+</html>

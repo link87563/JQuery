@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">AutoComplete</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <form name="myData" action="Index.jsp" method="get">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="txtSearch" name="keyword" autocomplete="off">
+                                <!--<input type="submit" value="送出" class="btn btn-default btn-xs"> -->
+                            </div>
+                        </form>
+                        <div id="div1" class="list-group">
+                            <button class="list-group-item">aaaaa</button>
+                            <button class="list-group-item">bbbbb</button>
+                            <button class="list-group-item">ccccc</button>
+                            <button class="list-group-item">ddddd</button>
+                            <button class="list-group-item">eeeee</button>
+                            <button class="list-group-item">fffff</button>
+                            <button class="list-group-item">ggggg</button>
+                        </div>
+
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>             
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+
+            //使用者輸入資料後，讀出使用者輸入的字元
+            //將資料傳給CustomerHandler.ashx
+            //這支程式會回傳JSON的資料
+            //讀出JSON資料
+            //將資料顯示在div1中(如上列範例所示)
+
+           
+
+
+
+
+
+
+
+
+            //改換成jQuery UI完成此功能
+
+        });
+    </script>
+</body>
+
+</html>

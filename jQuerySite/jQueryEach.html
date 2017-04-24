@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery each</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+
+            //讀取陣列中的資料
+            var names = ["Jack", "Tom", "Mary", "Fiona"];
+
+            //讀取物件中的資料
+            var emp = { "name": "Jack", "salary": 32000, "workYears": 2 };
+
+            //讀取JSON中的資料
+            var emps = [{ "name": "Jack", "salary": 32000, "workYears": 2 },
+                        { "name": "Mary", "salary": 42000, "workYears": 5 },
+                        { "name": "Tom", "salary": 52000, "workYears": 7 }];
+
+
+            //讀取JSON中的資料
+            var data = {
+                emps: [{ name: "Jack", age: 29, contact: { home: "02-12345678", cell: "0911222333" } },
+	                  { name: "Mary", age: 35, contact: { home: "02-33116745", cell: "0932112654" } },
+	                  { name: "Tom", age: 26, contact: { home: "02-54346666", cell: "0955832123" } }]
+            };
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+ <!--<link rel="stylesheet" href="css/jquery-ui.min.css">--> 
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQueryUI - Tab</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <!-- 按照jQueryUI的範例製作網頁內容 -->
+                        <div id="tabs">
+                            <ul>
+                                <li><a href="#tabs-1">微軟</a></li>
+                                <li><a href="#tabs-2">介面</a></li>
+                                <li><a href="#tabs-3">遊戲</a></li>
+                            </ul>
+                            <div id="tabs-1">
+                                <p>
+                                    (原課程名稱為：雲端服務開發技術養成班(.NET))(恭喜最近結訓學員-30家廠商競搶人才)
+                                    近來，Microsoft .NET技術在巿場上急速升溫，在Microsoft大力推波助瀾下，廠商在對熟悉Microsoft .NET技術『求才若渴』。使用.NET技術及Microsoft 新一代的開發工具讓您快速又有效率進入程式設計領域，開發企業級應用程式並兼顧藝術視覺效果的2D與3D創意設計介面。Microsoft 是目前市佔率最高的軟體領導廠商，本班是職訓市場唯一針對Microsoft軟體開發技術 所設計的就業養成課程，擁有MicroSoft軟體開發技術，就具備"獨家功夫"的競爭優勢！
+                                </p>
+                            </div>
+                            <div id="tabs-2">
+                                <p>
+                                    (原課程名稱為：影音多媒體設計師就業養成班)
+                                    專精於網路多媒體技術培訓，加強美術及色彩觀念，摒棄一般繁雜式教學，專注於專業軟體教學，以及整體企劃實作，紮實的課程，加上業界專業講師授課，讓你學習更放心。
+                                </p>
+                            </div>
+                            <div id="tabs-3">
+                                <p>課程重點在於透過實際遊戲製作讓學員了解整個遊戲開發過程，培育出遊戲程式設計人才，循序漸進以程式少人數專業分工與製程為底，以專題貫穿整個訓練時程，並與遊戲美術班進行共同創作，結訓產出原創3D作品發表。</p>
+                                <p>課程重點在於透過遊戲製作過程學習中的角色場景設計，培育出遊戲美術原創人才，循序漸進以美術專業分工與製程為底，以專題貫穿整個訓練時程，並與遊戲程式班進行共同創作，結訓產出作品發表。</p>
+                            </div>
+                        </div>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--<script src="js/jquery-ui.min.js"></script>--> 
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+
+            //$("#tabs").tabs({
+            //    event: "mouseover"
+            //});
+        });
+    </script>
+</body>
+
+</html>

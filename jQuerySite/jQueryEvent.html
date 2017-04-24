@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery Event</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <input type="button" value="one" id="buttonOne" class="btn btn-success">
+                        <input type="button" value="on" id="buttonOn" class="btn btn-primary">
+                        <input type="button" value="off" id="buttonOff" class="btn btn-info">
+                        <input type="button" value="add row" id="buttonAdd" class="btn btn-success">
+                        <div id="msg">
+                        </div>
+                        <table id="simpleTable" class="table table-bordered table-hover">
+                            <tr>
+                                <td>A0</td>
+                                <td>B1</td>
+                                <td>C2</td>
+                                <td><a href="#" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                            <tr>
+                                <td>D3</td>
+                                <td>E4</td>
+                                <td>F5</td>
+                                <td><a href="#" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                            <tr>
+                                <td>G6</td>
+                                <td>H7</td>
+                                <td>I8</td>
+                                <td><a href="#" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                        </table>
+
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+
+            //練習一
+            //使用one來繫結buttonOne按鈕的click事件
+            //按下按鈕後在msg的div中顯示one的字樣
+            //瀏覽網頁時,重複按下buttonOne按鈕,只會在div中出現一次one的字
+
+
+            //練習二
+            //使用on來繫結buttonOn按鈕的click事件
+            //按下按鈕後在msg的div中顯示on的字樣
+            //瀏覽網頁時,重複按下buttonOn按鈕,會在div中重複出現on的字
+
+
+
+
+            $('#buttonOff').click(function () {
+                //練習三
+                //將buttonOn按鈕的click事件取消掉
+
+            })
+
+                    
+
+
+          
+
+            //測試看看
+            //按下刪除按鈕(class名稱是btn-danger)時,可以將那一筆資料刪除
+            //再試試看
+            //按下[add row]按鈕多新增幾筆資料
+            //針對新增出來的資料,按下刪除按鈕(class名稱是btn-danger)時,還可以將那一筆資料刪除嗎???
+            $('.btn-danger').click(function () {
+                $(this).parent().parent().remove();
+            })          
+
+
+            //練習五使用on綁定網頁上刪除按鈕，完成刪除動作
+
+
+            $('#buttonAdd').click(function () {
+                $('table').append("<tr><td>X</td><td>Y</td><td>Z</td><td><a href='#' class='btn btn-danger'>刪除</a></td></tr>");
+            });
+
+
+        });
+    </script>
+</body>
+
+</html>

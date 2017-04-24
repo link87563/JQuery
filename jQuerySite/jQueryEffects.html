@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+#div1 {
+	width: 490px;
+}
+
+#alligator {
+	position: absolute;
+	left: 700px;
+	top: 350px;
+}
+
+#img1 {
+	width: 490px;
+	height: 660px;
+}
+</style>
+
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery Effects</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <input type="button" value="顯示隱藏" id="buttonShowHide" class="btn btn-primary">
+                        <input type="button" value="滑動效果" id="buttonSlide" class="btn btn-success">
+                        <input type="button" value="淡入淡出" id="buttonFade" class="btn btn-info">
+                        <div id="div1">
+                            <img id="img1" src="images/transformer.jpg" alt="transformer">
+                        </div>
+                        <img src="images/alligator.gif" id="alligator">
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+        });
+    </script>
+</body>
+
+</html>

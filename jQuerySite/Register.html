@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">會員註冊</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <form id="registerForm" class="form-horizontal" action="Register.ashx">
+                            <div class="form-group">
+                                <label for="username" class="col-lg-2 control-label">帳號</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <span class="glyphicon glyphicon-user input-group-addon"></span>
+                                        <input type="text" id="username" name="name" class="form-control" placeholder="請輸入姓名">
+                                        <div id="span1" class="input-group-addon"><span class="glyphicon glyphicon-question-sign"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="col-lg-2 control-label">密碼</label>
+                                <div class="col-lg-10">
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="請輸入密碼">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-lg-2 control-label">電子郵件</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="請輸入電子郵件">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="submit" id="buttonSubmit" class="btn btn-primary">註冊</button>
+                                    <div id="message"></div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            //將使用者輸入的帳號傳給AccountCheck.ashx
+            //將AccountCheck.ashx回傳的結果顯示在id為message的div中
+            //判斷帳號是否存在
+            //帳號不存在換上 glyphicon glyphicon-ok-sign 圖示
+            //帳號存在換上 glyphicon glyphicon-remove-sign 圖示
+            $('#username').blur(function () {
+                var spn = $('#span1>span');
+                $.get('AccountCheck.ashx', { "name": $(this).val() }, function (data) {
+                    if (data == "帳號不存在") {
+                        spn.removeClass().addClass('glyphicon glyphicon-ok-sign');
+                    } else {
+                        spn.removeClass().addClass('glyphicon glyphicon-remove-sign');
+                    }
+                })
+            })
+
+
+            //按下註冊按鈕將會員資料傳給Register.ashx
+
+        });
+    </script>
+</body>
+
+</html>
