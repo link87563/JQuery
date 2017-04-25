@@ -8,7 +8,7 @@
             position: absolute;
             height: 150px;
             width: 150px;
-            background-color: lightgreen;
+            background-color: lightcoral;
             border-radius:25px;
         }
     </style>
@@ -24,6 +24,7 @@
 
             //當視窗放大或縮小時呼叫move_div的函式
             //讓div1置中
+            $(window).resize(move_div);
            
         });
 

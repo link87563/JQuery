@@ -45,21 +45,45 @@
                         <hr />
 
                         <table class="simpleTable">
-                            <tr>
-                                <td>A0</td>
-                                <td>B1</td>
-                                <td>C2</td>
-                            </tr>
-                            <tr>
-                                <td>D3</td>
-                                <td>E4</td>
-                                <td>F5</td>
-                            </tr>
-                            <tr>
-                                <td>G6</td>
-                                <td>H7</td>
-                                <td>I8</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>title1</th>
+                                    <th>title2</th>
+                                    <th>title3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A0</td>
+                                    <td>B1</td>
+                                    <td>C2</td>
+                                </tr>
+                                <tr>
+                                    <td>D3</td>
+                                    <td>E4</td>
+                                    <td>F5</td>
+                                </tr>
+                                <tr>
+                                    <td>G6</td>
+                                    <td>H7</td>
+                                    <td>I8</td>
+                                </tr>
+                                <tr>
+                                    <td>A0</td>
+                                    <td>B1</td>
+                                    <td>C2</td>
+                                </tr>
+                                <tr>
+                                    <td>D3</td>
+                                    <td>E4</td>
+                                    <td>F5</td>
+                                </tr>
+                                <tr>
+                                    <td>G6</td>
+                                    <td>H7</td>
+                                    <td>I8</td>
+                                </tr>
+                            </tbody>
 
 
                         </table>
@@ -89,32 +113,55 @@
             //text-decoration:none
             //background:url(Images/pdf_icon.gif) no-repeat
             //padding-left:20px
-
+            $('a[href $= "doc"]').css({
+                'background': 'url(images/word_icon.gif) no-repeat',
+                'padding-left': '20px'
+            });
+            $('a[href $= "pdf"]').css({
+                'background': 'url(images/pdf_icon.gif) no-repeat',
+                'padding-left':'20px'
+            })
             //=============================
+
+            $('.simpleTable,.simpleTable td,.simpleTable th').css({
+                'border': '3px solid blue',
+                'padding': '10px',
+                'text-align':'center'
+            });
 
             //==== Basic Filter Selectors ====
             //根據索引值,找到要控制的元素(標籤)
             //練習一
             //將E4的背景色，設定成紫色 background-color:purple
-            //將A0-C2的背景色，設定成黃色 background-color:yellow
-            //將G6-I8的背景色，設定成橘色 background-color:orange
-
+            //$('.simpleTable td:eq(4)').css({ 'background': 'purple','color':'white' });
+            ////將A0-C2的背景色，設定成黃色 background-color:yellow
+            //$('.simpleTable td:lt(3)').css({ 'background': 'yellow' });
+            ////將G6-I8的背景色，設定成橘色 background-color:orange
+            //$('.simpleTable td:gt(5)').css({ 'background': 'orange' });
             //練習二
             //先將上面的練習都注解掉
             //將偶數格A0,C2,E4,G6,I8的背景色，設定成黃色 background-color:yellow
-            //將數格B1,D3,F5,H7的背景色，設定成橘色 background-color:orange
-
+            //$('.simpleTable td:odd').css({ 'background': 'yellow' });
+            ////將數格B1,D3,F5,H7的背景色，設定成橘色 background-color:orange
+            //$('.simpleTable td:even').css({ 'background': 'orange' });
             //=============================
 
             //==== Child Filter Selectors ===========
-
+            //td抓直線
+            //$('.simpleTable td:first-child').css({ 'background': 'yellow' });
+            //$('.simpleTable td:last-child').css({ 'background': 'orange' });
+            //$('.simpleTable td:nth-child(2)').css({ 'background': 'green' });
+            //tr抓橫線
+            //$('.simpleTable>tbody tr:first-child').css({ 'background': 'yellow' });
+            //$('.simpleTable>tbody tr:last-child').css({ 'background': 'orange' });
+            //$('.simpleTable>tbody tr:nth-child(2)').css({ 'background': 'green' });
+            //$('.simpleTable>tbody tr:nth-child(2n)').css({ 'background': 'yellow' });
+            //$('.simpleTable>tbody tr:nth-child(2n+1)').css({ 'background': 'orange' });
+            //$('.simpleTable>tbody tr:nth-child(3n+1)').css({ 'background': 'green' });
+            $('.simpleTable>tbody tr:nth-child(even)').css({ 'background': 'yellow' });
+            $('.simpleTable>tbody tr:nth-child(odd)').css({ 'background': 'orange' });
             //=============================
-
-
         });
     </script>
-
-
 </body>
-
 </html>

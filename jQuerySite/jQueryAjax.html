@@ -66,7 +66,9 @@
                 //1. 呼叫Handler.ashx
                 //2. 傳 name=Jack及age=30的資料給Handler.ashx
                 //3. 將Server端回傳的結果加上h2的標籤,顯示在show的div中
-
+                $.get('Handler.ashx', { "name": "Link", "age": 22 }, function (data) {
+                    $('#show').html(data);
+                })
             });
 
             $('#buttonPost').click(function () {
@@ -74,7 +76,9 @@
                 //1. 呼叫Handler.ashx
                 //2. 傳 name=Mary及age=的25資料給Handler.ashx
                 //3. 將Server端回傳的結果加上h2的標籤,顯示在show的div中
-
+                $.post('Handler.ashx', { "name": "Mary", "age": 20 }, function (data) {
+                    $('#show').html(data);
+                })
             });
 
 

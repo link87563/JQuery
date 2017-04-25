@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
-
-
+    <style>
+        
+    </style>
 </head>
 <body>
     <header class="container"></header>
@@ -48,6 +49,29 @@
 
             //看到selectors重複時... Chaining 鏈式語法
             //看到jQuery的方法重複使用時
+            //$('h1').css('color', 'blue');
+            //$('h1').mouseover(function () {
+            //    $(this).css('color', 'red');
+            //})
+            //$('h1').mouseout(out);
+            //function out() {
+            //    $(this).css('color', 'blue');
+            //}
+            var st1 = { 'color': 'red', 'background-color':'lightcoral','padding': '10px','text-align':'center' };
+            var st2 = { 'color': 'blue', 'background-color': 'Highlight', 'padding': '10px', 'text-align': 'center' };
+            $('h1').css(st1).mouseover(over).mouseout(out);
+            function over() {
+                $(this).css(st2);
+            }
+            function out() {
+                $(this).css(st1);
+            }
+            //$('h1').css('color', 'blue').mouseover(function () {
+            //    $(this).css('color', 'red');
+            //}).mouseout(function () {
+            //    $(this).css('color', 'blue');
+            //})
+            
         });
     </script>
 </body>

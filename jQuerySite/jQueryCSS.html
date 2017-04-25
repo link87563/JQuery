@@ -18,7 +18,7 @@
             color: green;
                 text-decoration: none;
                 border: 3px red double;
-                width: 400px;
+                width: 600px;
                 text-align: center;
                 background-color:red;
         }
@@ -59,6 +59,7 @@
 
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-ui-effects.min.js"></script>
     <script>
         $(document).ready(function () {
             $('header').load('partial/header.html');
@@ -66,7 +67,26 @@
             $('#section').load('partial/section.html');
             $('footer').load('partial/footer.html');
 
+            $('h1').addClass('s1').hover(show, out);
+            function show() {
+                //$(this).removeClass('s1').addClass('s2');
+                $(this).switchClass('s1', 's2', 500);
+            }
+            function out() {
+                //$(this).removeClass('s2').addClass('s1');
+                $(this).switchClass('s2', 's1', 500);
+            }
 
+            $('#buttonToggle').click(function () {
+                var myH = $('#myH');
+                //if (myH.hasClass('s2')) {
+                //    myH.removeClass('s2');
+                //}
+                //else {
+                //    myH.addClass('s2');
+                //}
+                myH.toggleClass('s2', 1000);
+            })
         });
     </script>
 </body>
