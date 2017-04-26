@@ -40,10 +40,10 @@
                         <input type="button" value="check" id="buttonToggle" /><br />
                          <input type="checkbox" id="Toggle" />Toggle All<br /> 
                         <input type="checkbox" value="a1" name="a" />A1
-                        <input type="checkbox" value="a2" name="a" />A2
+                        <input type="checkbox" value="a2" name="a" checked />A2
                         <input type="checkbox" value="a3" name="a" />A3
                         <input type="checkbox" value="a4" name="a" />A4
-                        <input type="checkbox" value="a5" name="a" />A5
+                        <input type="checkbox" value="a5" name="a" checked />A5
                         <input type="checkbox" value="a6" name="a" />A6
                         <input type="button" value="get checked" id="buttonGet" />
                         <hr />
@@ -131,23 +131,32 @@
 
             $('#buttonToggle').click(function () {
                 //切換各自checkbox的勾選狀態
-                var v = $('#Toggle').prop('checked');
-                $(':checkbox[name="a"]').prop('checked', v);
+                $(':checkbox[name="a"]').each(function () {
+                    var b = !$(this).prop('checked');
+                    $(this).prop('checked', b);
+                })
             });
 
             $('#buttonGet').click(function () {
                 //讀出所有被勾選checkbox的值
-
+                var items = [];
+                $(':checkbox[name="a"]:checked').each(function () {
+                    //if ($(this).prop('checked')) {
+                        items.push($(this).val());
+                    //}
+                })
+                alert(items);
             });
 
-
             //prepend() vs append() vs before() vs after()
+            //$('#myH').prepend('<s>'+'aaaa'+'</s>');
+            //$('#myH').append('bbbb');
+            //$('#myH').before('<u>'+'cccc'+'</u>');
+            //$('#myH').after('dddd');
 
-
+            $('<u>' + 'aaaa' + '</u>').appendTo('#myH');
 
             //empty() vs remove()
-
-
 
         });
     </script>

@@ -18,20 +18,20 @@
                     <div class="panel-heading">AutoComplete</div>
                     <div class="panel-body">
                         <!-- 每頁不同的內容從這裡開始 -->
-                        <form name="myData" action="Index.jsp" method="get">
+                        <form name="myData" action="Hello.ashx" method="get">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="txtSearch" name="keyword" autocomplete="off">
                                 <!--<input type="submit" value="送出" class="btn btn-default btn-xs"> -->
                             </div>
                         </form>
                         <div id="div1" class="list-group">
-                            <button class="list-group-item">aaaaa</button>
+                            <!--<button class="list-group-item">aaaaa</button>
                             <button class="list-group-item">bbbbb</button>
                             <button class="list-group-item">ccccc</button>
                             <button class="list-group-item">ddddd</button>
                             <button class="list-group-item">eeeee</button>
                             <button class="list-group-item">fffff</button>
-                            <button class="list-group-item">ggggg</button>
+                            <button class="list-group-item">ggggg</button>-->
                         </div>
 
                         <!-- 每頁不同的內容到這裡結束 -->
@@ -61,16 +61,39 @@
             //這支程式會回傳JSON的資料
             //讀出JSON資料
             //將資料顯示在div1中(如上列範例所示)
+            var txt = $('#txtSearch');
+            txt.keyup(function () {
+                load($(this).val());
+            })
+            function load(id) {
+                    $.getJSON('CustomerHandler.ashx', { 'term': id }, function (datas) {
+                        var div1 = $('#div1');
+                        var f = $(document.createDocumentFragment());
+                        var eleUI = $('<ul></ul>');
+                        $.each(datas, function (index, value) {
+                            var eleLi = $('<li></li>').text(value);
+                            eleLi.click(function () {
+                                txt.val = this.textContent;
+                                document.myData.submit();
+                            })
+                            //f.append(value + '<br>');
+                            eleUI.append(eleLi);
+                        })
+                        div1.append(eleUI);
+                        //div1.html(f);
+                    })
+            }
 
-           
-
-
-
-
-
-
-
-
+            //function load(id) {
+            //    $.getJSON('CustomerHandler.ashx', { 'term': id }, function (datas) {
+            //        var div1 = $('#div1');
+            //        var f = $(document.createDocumentFragment());
+            //        $.each(datas, function (index, value) {
+            //            f.append(value + '<br>');
+            //        })
+            //        div1.html(f);
+            //    })
+            //}
             //改換成jQuery UI完成此功能
 
         });

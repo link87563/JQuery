@@ -30,8 +30,6 @@ public class CustomerHandler : IHttpHandler {
                 suggestions.Add(dr[0].ToString());
             }
         }
-
-
         context.Response.ContentType = "application/json";
         context.Response.Write(JsonConvert.SerializeObject(suggestions));
     }
