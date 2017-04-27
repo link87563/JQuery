@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" /> 
+   
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery CRUD</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <div class="row">
+                           
+                            <div class="col-md-9">
+                                <select id="select1">
+                                   
+                                </select>
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>產品編號</th>
+                                            <th>產品名稱</th>
+                                            <th>產品價格</th>
+                                            <th>庫存量</th>
+                                            <th>管理</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tb">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h4>產品新增</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form name="productData" action="HandlerProductCreate.ashx" method="post">
+                                            <div class="form-group">
+                                                <label for="Category">產品分類</label>
+                                                <select id="Category" class="form-control" name="CategoryID"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ProductName">產品名稱</label>
+                                                <input type="text" class="form-control" id="ProductName" name="ProductName" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="UnitPrice">產品價格</label>
+                                                <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="UnitsInStock">庫存量</label>
+                                                <input type="text" class="form-control" id="UnitsInStock" name="UnitsInStock" />
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" id="buttonSubmit"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <!--<script src="js/jquery-1.12.3.min.js"></script>-->
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            //下拉選擇產品名稱
+            load(1);
+            $('#select1').on('change', $(this), function () {
+                load($(this).val());
+            })
+
+            //產生產品資料表
+            function load(id) {
+                $.getJSON('ProductsJSONByCategory.ashx', { 'categoryID': id }, function (datas) {
+                    var tu = $('#tb');
+                    tu.empty();
+                    var f = $(document.createDocumentFragment());
+                    $.each(datas, function (index, value) {
+                        var t1 = $('<td></td>').text(value.ProductID);
+                        var t2 = $('<td></td>').text(value.ProductName);
+                        var t3 = $('<td></td>').text(value.unitPrice);
+                        var t4 = $('<td></td>').text(value.unitsInStock);
+                        var t5 = $('<a href="#" class="btn btn-info">修改</a>,<a href="#" class="btn btn-danger">刪除</a>').attr({'data-cid': value.ProductID});
+                        var row = $('<tr></tr>').append(t1, t2, t3, t4,t5);
+                        f.append(row);
+                    })
+                    tu.append(f);
+                })
+            }
+
+            //產生產品類品在下拉選單
+            $.ajax({ 'url': 'HandlerXml.ashx', 'type': 'get', 'dataType': 'xml' }).done(function (datas) {
+                var f = $(document.createDocumentFragment());
+                $(datas).find('Category').each(function () {
+                    var categoryName = $(this).children('categoryname').text();
+                    var categoryID = $(this).children('categoryID').text();
+                    var opt = $('<option></option>').text(categoryName).val(categoryID);
+                    f.append(opt);
+                })
+                $('#select1,#Category').append(f);
+            })
+
+            //新增資料
+            $('#buttonSubmit').click(function (event) {
+                event.preventDefault();
+                var datas = $('form[name="productData"]').serialize();
+                $.post('CreateProductHandler.ashx', datas, function (data) {
+                    alert(data);
+                    $('#tb').load('JQuery_CRUD.html');
+                })
+            })
+
+            //刪除資料
+            $('#tb').on('click', '.btn-danger', function () {
+                $(this).parents('tr').remove();
+                $.get('DeleteProductHandler.ashx', { 'productID': $(this).data('cid') }, function (data) {
+                    alert(data);
+                })
+            })
+
+            //修改資料
+            $('#tb').on('click', '.btn-info', function () {
+                console.log($(this).data('cid'));
+                $.post('UpdateProductHandler.ashx', function () {
+
+                })
+            })
+        });
+    </script>
+
+   
+</body>
+</html>

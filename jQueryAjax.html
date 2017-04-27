@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .st1:nth-child(odd){
+            width:180px;
+            margin:15px;
+            border:1px solid green;
+            padding:2px;
+            border-radius:5px;
+            box-shadow:3px 3px 5px lightgreen;
+            transform:rotate(3deg);
+        }
+        .st1:nth-child(even){
+            width:180px;
+           margin:15px;
+            border:1px solid green;
+            padding:2px;
+            border-radius:5px;
+            box-shadow:3px 3px 5px lightgreen;
+            transform:rotate(-2deg);
+        }
+        .st1:hover{
+            width:180px;
+            margin:15px;
+            border:1px solid green;
+            padding:2px;
+            border-radius:5px;
+            box-shadow:0px 0px 5px lightgreen;  
+            transform:rotate(0deg);
+            transition:transform linear 0.5s;
+            cursor:pointer;
+        }
+    </style>
+    <link href="css/lightbox.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery Ajax</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <input type="button" value="get" id="buttonGet" class="btn btn-primary">
+                        <input type="button" value="post" id="buttonPost" class="btn btn-success">
+                        <input type="button" value="getJSON" id="buttonGetJSON" class="btn btn-info">
+                        <input type="button" value="ajax-xml" id="buttonAjax" class="btn btn-danger">
+                        <input type="button" value="jsonp" id="buttonJSONP" class="btn btn-primary">
+                        <input type="button" value="cors" id="buttonCORS" class="btn btn-success">
+                        <img src="images/ajax-loader.gif" id="img1">
+                        <hr>
+                        <div id="show" class="row">
+                            <!--<img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_3235340.JPG" class="col-sm-3 img-thumbnail">-->
+                            <!--<img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_5117942.JPG" title="二二八和平公園-急公好義坊"  class="st1"/>
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_5117942.JPG" title="二二八和平公園-急公好義坊" class="st1" />
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_5117942.JPG" title="二二八和平公園-急公好義坊" class="st1" />
+                            <img src="http://parks.taipei/parkbasic/imagespace/specialview/original/thumb_image_5117942.JPG" title="二二八和平公園-急公好義坊" class="st1" />-->
+                        </div>
+                        <hr>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lightbox.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            $('#buttonGet').click(function () {
+                //練習一使用get()
+                //1. 呼叫Handler.ashx
+                //2. 傳 name=Jack及age=30的資料給Handler.ashx
+                //3. 將Server端回傳的結果加上h2的標籤,顯示在show的div中
+                $.get('Handler.ashx', { "name": "Link", "age": 22 }, function (data) {
+                    $('#show').html(data);
+                })
+            });
+
+            $('#buttonPost').click(function () {
+                //練習二使用post()
+                //1. 呼叫Handler.ashx
+                //2. 傳 name=Mary及age=的25資料給Handler.ashx
+                //3. 將Server端回傳的結果加上h2的標籤,顯示在show的div中
+                $.post('Handler.ashx', { "name": "Mary", "age": 20 }, function (data) {
+                    $('#show').html(data);
+                })
+            });
+
+
+            $('#buttonGetJSON').click(function () {
+                //練習三使用getJSON()
+                //1. 呼叫apiln.json
+                //2. 讀出回傳JSON格式中的景點圖片(Image)
+                //3. 將景點圖片顯示在show的div中
+                var show = $('#show');
+                var f = $(document.createDocumentFragment());
+                $.getJSON('apiIn.json', function (datas) {
+                    $.each(datas, function (index, park) {
+                        //console.log(park.ParkName);
+                        //console.log(park.Name);
+                        //console.log(park.Image);
+                        var img = $('<img />').attr({ 'src': park.Image, 'title': park.ParkName + '-' + park.Name }).addClass('st1');
+                        var a = $('<a></a>').attr({ 'href': park.Image, 'data-lightbox': 'img1', 'data-title': park.ParkName + '-' + park.Name }).html(img);
+                       
+                        f.append(a);
+                    })
+                    show.html(f);
+                    //console.log(datas);
+                })
+            });
+
+
+            $('#buttonAjax').click(function () {
+                //練習四使用ajax()
+                //1. 呼叫travel.xml
+                //2. 讀出回傳xml格式中的景點圖片(Image)
+                //3. 將景點圖片顯示在show的div中
+                var show = $('#show');
+                var f = $(document.createDocumentFragment());
+                $.ajax({ 'url': 'travel.xml', 'type': 'get', 'dataType': 'xml' }).done(function (datas) {
+                    var section = $(datas).find('Section');
+                    section.each(function () {
+                        var stitle = $(this).children('stitle').text();
+                        var imgsrc = $(this).find('img:eq(0)').text();
+                        var img = $('<img/>').attr({ 'src': imgsrc, 'title': stitle }).addClass('st1');
+                        f.append(img);
+                    })
+                    show.html(f);
+                })
+            });
+
+
+            $('#buttonJSONP').click(function () {
+                //練習五JSONP
+                //先試試看Request Handler.ashx會成功
+                //將Handler.ashx幫到另外的專案中，再去Request這個專案中的Handler.ashx，會發生什麼狀況
+                $.get('Handler.ashx', { 'name': 'Jack', 'age': 30 }, function (data) {
+                    $('#show').html("<h2>" + data + "</h2>");
+                })
+            })
+
+            $('#buttonCORS').click(function () {
+                $.ajax({ 'url': 'http://localhost:65449/Ajax/CORS.ashx' }).done(function (datas) {
+                    $('#show').html('<h2>' + datas + '</h2>');
+                })
+
+            })
+
+            //顯示server端的程式正在執行
+            $('#img1').hide();
+            //Ajax程式執行時，顯示執行中圖示，Ajax程式停止時，隱藏執行中圖示
+            $(document).ajaxStart(function () {
+                $('#img1').show(500);
+            }).ajaxStop(function () {
+                $('#img1').hide(500);
+            })
+
+        });
+    </script>
+</body>
+
+</html>

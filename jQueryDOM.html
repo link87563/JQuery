@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+       
+    </style>
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery DOM</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <a href="jQuerySelectors.html">Selectors</a> |
+                        <a href="jQueryFirst.html">First</a> |
+                        <a href="http://tw.yahoo.com">YAHOO</a> |
+                        <a href="http://www.google.com.tw">Google</a>
+                        <hr />
+                        <input type="text" id="txtName" /><input type="button" value="Click" id="buttonClick" /><span id="span1"></span>
+                        <br />
+                        <select id="select1">
+                            <option value="a">Item1</option>
+                            <option value="b">Item2</option>
+                            <option value="c">Item3</option>
+                            <option value="d">Item4</option>
+                        </select>
+                        <span id="span2"></span>
+                        <hr />
+                        <input type="button" value="check" id="buttonToggle" /><br />
+                         <input type="checkbox" id="Toggle" />Toggle All<br /> 
+                        <input type="checkbox" value="a1" name="a" />A1
+                        <input type="checkbox" value="a2" name="a" checked />A2
+                        <input type="checkbox" value="a3" name="a" />A3
+                        <input type="checkbox" value="a4" name="a" />A4
+                        <input type="checkbox" value="a5" name="a" checked />A5
+                        <input type="checkbox" value="a6" name="a" />A6
+                        <input type="button" value="get checked" id="buttonGet" />
+                        <hr />
+                        <h1 id="myH">write less, do more</h1>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <!--<script src="js/jquery-1.12.3.min.js"></script>-->
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            //設定txtName中的值
+            var txt= $('#txtName');
+            txt.val('Guest');
+            $('#buttonClick').click(function () {
+                //將使用者輸入在txtName中的內容讀出顯示在span1中
+                var v=txt.val();
+                //$('#span1').text(v);
+                //將使用者輸入在txtName中的內容讀出加上<h2>的標籤顯示在span1中
+                $('#span1').html("<h2>"+v+"</h2>");
+            });
+
+
+            $('#select1').change(function () {
+                //練習
+                //當使用者選取不同的select1項目時
+                //讀出此項目的索引值(index),文字(text),值(value)
+                //將這些資料顯示在span2的span中
+                //alert($(this).val());
+                //var s = $(this).val();
+                //$('#span2').text(s);
+                var opt = $('#select1>:selected');
+                var i = opt.index(); //抓索引值
+                var t = opt.text(); //抓文字
+                var v = opt.val(); //抓Value
+                $('#span2').text(i+',' + t +','+ v);
+            });
+
+
+
+            //找到網頁上的連結標籤，加上target=_blank屬性
+            //$('a').attr({ 'target': '_blank','title':'Open new window' });
+            //找到網頁上要連結到外部網站的連結標籤，加上target=_blank屬性
+            $('a[href ^="http"]').attr({ 'target': '_blank' });
+
+
+            //attr() vs prop()
+
+            //console.log($(":checkbox:eq(0)").attr('checked'));
+            //console.log($(":checkbox:eq(1)").attr('checked'));
+            //console.log($(":checkbox:eq(2)").attr('checked'));
+            //console.log($(":checkbox:eq(3)").attr('checked'));
+            //console.log($(":checkbox:eq(4)").attr('checked'));
+            //console.log($(":checkbox:eq(5)").attr('checked'));  
+
+            //console.log($(":checkbox:eq(0)").prop('checked'));
+            //console.log($(":checkbox:eq(1)").prop('checked'));
+            //console.log($(":checkbox:eq(2)").prop('checked'));
+            //console.log($(":checkbox:eq(3)").prop('checked'));
+            //console.log($(":checkbox:eq(4)").prop('checked'));
+            //console.log($(":checkbox:eq(5)").prop('checked'));
+
+            $('#Toggle').change(function () {
+                //切換所有checkbox的勾選狀態        	
+                //console.log($(this).attr('checked'));
+                //console.log($(this).prop('checked'));
+                var v= $(this).prop('checked');
+                $(':checkbox[name="a"]').prop('checked', v);
+            })
+
+            $('#buttonToggle').click(function () {
+                //切換各自checkbox的勾選狀態
+                $(':checkbox[name="a"]').each(function () {
+                    var b = !$(this).prop('checked');
+                    $(this).prop('checked', b);
+                })
+            });
+
+            $('#buttonGet').click(function () {
+                //讀出所有被勾選checkbox的值
+                var items = [];
+                $(':checkbox[name="a"]:checked').each(function () {
+                    //if ($(this).prop('checked')) {
+                        items.push($(this).val());
+                    //}
+                })
+                alert(items);
+            });
+
+            //prepend() vs append() vs before() vs after()
+            //$('#myH').prepend('<s>'+'aaaa'+'</s>');
+            //$('#myH').append('bbbb');
+            //$('#myH').before('<u>'+'cccc'+'</u>');
+            //$('#myH').after('dddd');
+
+            $('<u>' + 'aaaa' + '</u>').appendTo('#myH');
+
+            //empty() vs remove()
+
+        });
+    </script>
+</body>
+
+</html>

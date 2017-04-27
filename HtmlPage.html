@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <select id="sel1">
+    <option value="a">Item1</option>
+    <option value="b">Item2</option>
+    <option value="c">Item3</option>
+    </select> 
+    <div id="div1"></div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).select(function () {
+            console.log($('#sel1').val());
+            $('#div1').text('#sel1').val();
+        })
+    </script>
+</body>
+</html>

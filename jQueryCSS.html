@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+ <style>
+        .s1{
+            color: orange;
+                text-decoration: underline;
+                border: 1px red solid;
+                width: 400px;
+                text-align: center;
+                background-color:green;
+        }
+         .s2{
+            color: green;
+                text-decoration: none;
+                border: 3px red double;
+                width: 600px;
+                text-align: center;
+                background-color:red;
+        }
+       
+    </style>
+
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery CSS</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <input type="button" value="Toggle" id="buttonToggle" />
+                        <h1 id="myH">write less, do more</h1>
+                        <h1>write less, do more</h1>
+                        <h1>write less, do more</h1>
+                        <h1>write less, do more</h1>
+                        <h1>write less, do more</h1>
+                        <h1>write less, do more</h1>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-ui-effects.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            $('h1').addClass('s1').hover(show, out);
+            function show() {
+                //$(this).removeClass('s1').addClass('s2');
+                $(this).switchClass('s1', 's2', 500);
+            }
+            function out() {
+                //$(this).removeClass('s2').addClass('s1');
+                $(this).switchClass('s2', 's1', 500);
+            }
+
+            $('#buttonToggle').click(function () {
+                var myH = $('#myH');
+                //if (myH.hasClass('s2')) {
+                //    myH.removeClass('s2');
+                //}
+                //else {
+                //    myH.addClass('s2');
+                //}
+                myH.toggleClass('s2', 1000);
+            })
+        });
+    </script>
+</body>
+
+</html>

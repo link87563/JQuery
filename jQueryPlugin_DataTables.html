@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css" />
+</head>
+<body>
+    <header class="container"></header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <nav></nav>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">jQuery plugin - DataTables</div>
+                    <div class="panel-body">
+                        <!-- 每頁不同的內容從這裡開始 -->
+                        <table id="table1" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ProductID</th>
+                                    <th>ProductName</th>
+                                    <th>UnitPrice</th>
+                                    <th>UnitsInStock</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <!-- 每頁不同的內容到這裡結束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section" class="row"></div>
+        <footer class="footer"></footer>
+
+    </div>
+
+
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('header').load('partial/header.html');
+            $('nav').load('partial/nav.html');
+            $('#section').load('partial/section.html');
+            $('footer').load('partial/footer.html');
+
+            //$('#table1').DataTable({
+            //    "ajax": "ProductsJSON.ashx",
+            //    "columns": [
+            //        { "data": "ProductID" },
+            //        { "data": "ProductName" },
+            //        { "data": "unitPrice" },
+            //        { "data": "unitsInStock" }
+            //    ]
+            //});
+
+            $.getJSON('ProductsJSON.ashx', {  }, function (data) {
+
+                $('#table1>tbody').empty();
+                $.each(data.data, function (i, product) {
+                    //console.log(product.ProductName);
+                    var cell1 = $("<td></td>").text(product.ProductID);
+                    var cell2 = $("<td></td>").text(product.ProductName);
+                    var cell3 = $("<td></td>").text(product.unitPrice);
+                    var cell4 = $("<td></td>").text(product.unitsInStock);
+
+
+                    var row = $('<tr></tr>').append([cell1, cell2, cell3, cell4]);
+
+                    $('#table1>tbody').append(row);
+                });
+
+
+            })
+
+        });
+    </script>
+
+	
+</body>
+
+</html>
