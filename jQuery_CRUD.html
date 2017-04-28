@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <link href="css/bootstrap.min.css" rel="stylesheet" /> 
-   
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
 </head>
 <body>
     <header class="container"></header>
@@ -74,16 +74,17 @@
                 </div>
             </div>
         </div>
-
+        
         <div id="section" class="row"></div>
         <footer class="footer"></footer>
 
     </div>
+    <div id="dialog" title="訊息"></div>
 
-
-    <!--<script src="js/jquery-1.12.3.min.js"></script>-->
-    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <!--<script src="Scripts/jquery-3.1.1.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function () {
             $('header').load('partial/header.html');
@@ -91,11 +92,7 @@
             $('#section').load('partial/section.html');
             $('footer').load('partial/footer.html');
 
-            //下拉選擇產品名稱
-            load(1);
-            $('#select1').on('change', $(this), function () {
-                load($(this).val());
-            })
+            var sel1=$('#select1');
 
             //產生產品資料表
             function load(id) {
@@ -105,10 +102,10 @@
                     var f = $(document.createDocumentFragment());
                     $.each(datas, function (index, value) {
                         var t1 = $('<td></td>').text(value.ProductID);
-                        var t2 = $('<td></td>').text(value.ProductName);
-                        var t3 = $('<td></td>').text(value.unitPrice);
-                        var t4 = $('<td></td>').text(value.unitsInStock);
-                        var t5 = $('<a href="#" class="btn btn-info">修改</a>,<a href="#" class="btn btn-danger">刪除</a>').attr({'data-cid': value.ProductID});
+                        var t2 = $('<td></td>').text(value.ProductName).attr('contenteditable','true');
+                        var t3 = $('<td></td>').text(value.unitPrice).attr('contenteditable', 'true');
+                        var t4 = $('<td></td>').text(value.unitsInStock).attr('contenteditable', 'true');
+                        var t5 = $('<td></td>').html('<button class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span>修改</button><button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>刪除</button>');
                         var row = $('<tr></tr>').append(t1, t2, t3, t4,t5);
                         f.append(row);
                     })
@@ -117,15 +114,30 @@
             }
 
             //產生產品類品在下拉選單
-            $.ajax({ 'url': 'HandlerXml.ashx', 'type': 'get', 'dataType': 'xml' }).done(function (datas) {
+            //$.ajax({ 'url': 'HandlerXml.ashx', 'type': 'get', 'dataType': 'xml' }).done(function (datas) {
+            //    var f = $(document.createDocumentFragment());
+            //    $(datas).find('Category').each(function () {
+            //        var categoryName = $(this).children('categoryname').text();
+            //        var categoryID = $(this).children('categoryID').text();
+            //        var opt = $('<option></option>').text(categoryName).val(categoryID);
+            //        f.append(opt);
+            //    })
+            //    $('#select1,#Category').append(f);
+            //})
+            $.getJSON('CategoryHandler.ashx', function (datas) {
                 var f = $(document.createDocumentFragment());
-                $(datas).find('Category').each(function () {
-                    var categoryName = $(this).children('categoryname').text();
-                    var categoryID = $(this).children('categoryID').text();
-                    var opt = $('<option></option>').text(categoryName).val(categoryID);
+                $.each(datas, function (index,value) {
+                    var opt = $('<option></option>').text(value.CategoryName).val(value.CategoryID);
                     f.append(opt);
                 })
-                $('#select1,#Category').append(f);
+                sel1.html(f);
+                $('#select1>option').clone().appendTo('#Category');
+                load(sel1.val());
+            })
+
+            //下拉選擇產品名稱
+            sel1.on('change', $(this), function () {
+                load($(this).val());
             })
 
             //新增資料
@@ -133,26 +145,51 @@
                 event.preventDefault();
                 var datas = $('form[name="productData"]').serialize();
                 $.post('CreateProductHandler.ashx', datas, function (data) {
-                    alert(data);
-                    $('#tb').load('JQuery_CRUD.html');
+                    $("#dialog").html('<p>' + data + '</p>').dialog("open");
+                    //$('#tb').load('JQuery_CRUD.html');
+                    sel1.val($('#Category').val());
+                    load(sel1.val());
                 })
             })
 
             //刪除資料
             $('#tb').on('click', '.btn-danger', function () {
-                $(this).parents('tr').remove();
-                $.get('DeleteProductHandler.ashx', { 'productID': $(this).data('cid') }, function (data) {
-                    alert(data);
+                var id=$(this).parents('tr').find('td:eq(0)').text();//.remove();
+                $.get('DeleteProductHandler.ashx', { 'productID': id }, function (data) {
+                    $("#dialog").html('<p>' + data + '</p>').dialog("open");
+                    load(sel1.val());
                 })
             })
 
             //修改資料
             $('#tb').on('click', '.btn-info', function () {
-                console.log($(this).data('cid'));
-                $.post('UpdateProductHandler.ashx', function () {
-
+                var product = {};
+                product.ProductID = $(this).parents('tr').find('td:eq(0)').text();
+                product.ProductName = $(this).parents('tr').find('td:eq(1)').text();
+                product.unitPrice = $(this).parents('tr').find('td:eq(2)').text();
+                product.unitsInStock = $(this).parents('tr').find('td:eq(3)').text();
+                //$(this).toggleClass('btn-warning');
+                $.post('UpdateProductHandler.ashx', product,function (data) {
+                    //alert(data);
+                    $("#dialog").html('<p>'+data+'</p>').dialog("open");
+                    load(sel1.val());
                 })
             })
+            //alert樣式
+            $("#dialog").dialog({
+                autoOpen: false, show: {
+                    effect: "fade", duration: 1000
+                },
+                hide: {
+                    effect: "fade", duration: 1500
+                },
+                open: function (event, ui) {
+                    var d = $(this);
+                    window.setTimeout(function () {
+                        d.dialog("close");
+                    }, 1500);
+                }
+            });
         });
     </script>
 
